@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WD 101</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="parts">
+            <h1>Registration Form</h1>
+            <form action="" class="form" id="userForm">
+                <input class="block" type="text" id="name" name="name" placeholder="Name" required>
+                <input class="block" type="email" id="email" name="email" placeholder="Email" required>
+                <input class="block" type="password" id="password" name="password" minlength="8" placeholder="Password"
+                    required>
+                <input class="block" type="date" id="dob" name="dob" placeholder="Dob" min="" max="" required>
+                <label class="float" for="atnc">Accept terms and conditions : </label>
+                <input class="float" type="checkbox" name="at" id="at" required>
+                <button class="block submit" type="submit">Submit</button>
+            </form>
+        </div>
+
+        <div class="parts" id="tableView">
+            <h1>Entries</h1>
+            <table class="table">
+                <tr class="bor">
+                    <th class="bor">Name</th>
+                    <th class="bor">Email</th>
+                    <th class="bor">Password</th>
+                    <th class="bor">Dob</th>
+                    <th class="bor">Accepted terms?</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+
+</html>
