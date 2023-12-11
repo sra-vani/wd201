@@ -1,27 +1,20 @@
-/* eslint-disable no-unused-vars */
+// __tests__/todo.js
 /* eslint-disable no-undef */
-const todoList = require("../todo");
-
-const { all, markAsComplete, add } = todoList();
+const db = require("../models");
 
 describe("Todolist Test Suite", () => {
-  beforeAll(() => {
-    add({
-      title: "Test todo",
-      completed: false,
-      dueDate: new Date().toLocaleDateString("en-CA"),
-    });
+  beforeAll(async () => {
+    await db.sequelize.sync({ force: true });
   });
 
-  test("Should add new todo", () => {
-    const todoItemsCount = all.length;
-
-    add({
+  test("Should add new todo", async () => {
+    const todoItemsCount = await db.Todo.count();
+    await db.Todo.addTask({
       title: "Test todo",
       completed: false,
-      dueDate: new Date().toLocaleDateString("en-CA"),
+      dueDate: new Date(),
     });
-
-    expect(all.length).toBe(todoItemsCount + 1);
+    const newTodoItemsCount = await db.Todo.count();
+    expect(newTodoItemsCount).toBe(todoItemsCount + 1);
   });
 });
