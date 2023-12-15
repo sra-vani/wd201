@@ -4,6 +4,12 @@ const { Todo } = require("./models");
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
+app.set("view engine", "ejs");
+
+app.get("/", (request, response) => {
+  response.render("index");
+});
+
 app.get("/", function (request, response) {
   response.send("Hello World");
 });
@@ -11,10 +17,11 @@ app.get("/", function (request, response) {
 app.get("/todos", async function (_request, response) {
   console.log("Processing list of all Todos ...");
   // FILL IN YOUR CODE HERE
-
   // First, we have to query our PostgerSQL database using Sequelize to get list of all Todos.
   // Then, we have to respond with all Todos, like:
+  const todos = await Todo.findAll();
   // response.send(todos)
+  response.send(todos);
 });
 
 app.get("/todos/:id", async function (request, response) {
@@ -51,7 +58,20 @@ app.put("/todos/:id/markAsCompleted", async function (request, response) {
 app.delete("/todos/:id", async function (request, response) {
   console.log("We have to delete a Todo with ID: ", request.params.id);
   // FILL IN YOUR CODE HERE
-
+  if (await Todo.findByPk(request.params.id)) {
+    await Todo.destroy({
+      where: {
+        id: request.params.id,
+      },
+    });
+    if (await Todo.findByPk(request.params.id)) {
+      response.send(false);
+    } else {
+      response.send(true);
+    }
+  } else {
+    response.send(false);
+  }
   // First, we have to query our database to delete a Todo by ID.
   // Then, we have to respond back with true/false based on whether the Todo was deleted or not.
   // response.send(true)
