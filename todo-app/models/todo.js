@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       return this.update({ completed: true });
     }
 
-    static gettodo = async () => {
+    static getTodos = async () => {
       const todos = await Todo.findAll();
       return todos;
     };
