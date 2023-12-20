@@ -1,20 +1,76 @@
-// __tests__/todo.js
-/* eslint-disable no-undef */
-const db = require("../models");
-
-describe("Todolist Test Suite", () => {
-  beforeAll(async () => {
-    await db.sequelize.sync({ force: true });
-  });
-
-  test("Should add new todo", async () => {
-    const todoItemsCount = await db.Todo.count();
-    await db.Todo.addTask({
-      title: "Test todo",
+const todoList = require("../todo");
+const { all, markAsComplete, add, overdue,
+    dueToday,
+    dueLater } = todoList();
+const thisday = new Date(); 
+const oneD = 60 * 60 * 24 * 1000;
+describe("todoList", () => {
+  beforeAll(() => {
+    const thisday = new Date();
+     //referred to discord forum for this line of code
+    add({
+      title: "todo",
       completed: false,
-      dueDate: new Date(),
+      dueDate: new Date(thisday.getTime() - 1 * oneD).toLocaleDateString(
+        "en-CA",
+      ),
     });
-    const newTodoItemsCount = await db.Todo.count();
-    expect(newTodoItemsCount).toBe(todoItemsCount + 1);
+    add({
+      title: "todo2",
+      completed: false,
+      dueDate: new Date(thisday.getTime() + 1 * oneD).toLocaleDateString(
+        "en-CA",
+      ),
+    });
+    add({
+      title: "todo3",
+      completed: false,
+      dueDate: new Date().toLocaleDateString("en-CA"),
+    });
+  });
+  test("Should add new todo", () => {
+    const todoItemsCount = all.length;
+    add({
+      title: "todo",
+      completed: false,
+      dueDate: new Date().toLocaleDateString("en-CA"),
+    });
+    expect(all.length).toBe(todoItemsCount + 1);
+  });
+  test("should mark a todo as complete", () => {
+    expect(all[0].completed).toBe(false);
+    markAsComplete(0);
+    expect(all[0].completed).toBe(true);
+  });
+  test("checks return a list of overdue todos", () => {
+    const overDueTodoItemsCount =overdue().length;
+    add({
+        title: "todo",
+        completed: false,
+        dueDate: new Date(thisday.getTime() - 1 * oneD).toLocaleDateString(
+          "en-CA",
+        ),
+      });
+    expect(overdue().length).toEqual(overDueTodoItemsCount+1) 
+  });
+  test("checks return a list of todos due today", () => {
+    const duetodayTodoItemsCount =dueToday().length;
+    add({
+        title: "todo3",
+        completed: false,
+        dueDate: new Date().toLocaleDateString("en-CA"),
+      });
+    expect(dueToday().length).toEqual(duetodayTodoItemsCount+1) ;
+  });
+  test("checks return a list of todos due later", () => {
+    const dueLaterTodoItemsCount =dueLater().length;
+    add({
+        title: "todo2",
+        completed: false,
+        dueDate: new Date(thisday.getTime() + 2 * oneD)
+        .toISOString()
+        .slice(0, 10),
+      });
+    expect(dueLater().length).toEqual(dueLaterTodoItemsCount+1);
   });
 });
