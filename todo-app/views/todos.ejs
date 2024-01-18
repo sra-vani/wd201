@@ -1,3 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>TODO</title>
+</head>
+<body>
+
+<!-- Overdue Section -->
+<div id="over">
+    <h2>Overdue</h2>
+    <span id="count-over">0</span>
+    <table>
+        <% for(var i = 0; i < overdueTodos.length; i++){ %>
+            <tr>
+                <td>
+                    <%= overdueTodos[i].title %>
+                </td>
+            </tr>
+        <% } %>
+    </table>
+</div>
+
+<!-- Due Today Section -->
+<div id="due-today">
+    <h2>Due Today</h2>
+    <span id="count-due">0</span> <!-- This is where the count will be displayed -->
+    <table>
+        <% for(var i = 0; i < dueTodayTodos.length; i++){ %>
+            <tr>
+                <td>
+                    <%= dueTodayTodos[i].title %>
+                </td>
+            </tr>
+        <% } %>
+    </table>
+</div>
+
+<!-- Due Later Section -->
+<div id="due-later-section">
+    <h2>Later</h2>
+    <span id="count-later">0</span> <!-- This is where the count will be displayed -->
+    <table>
+        <% for(var i = 0; i < dueLaterTodos.length; i++){ %>
+            <tr>
+                <td>
+                    <%= dueLaterTodos[i].title %>
+                </td>
+            </tr>
+        <% } %>
+    </table>
+</div>
 <table>
     <% for(var i = 0; i < allTodos.length ;i++){ %>
             <tr> 
@@ -7,3 +58,8 @@
             </tr>
     <% } %>
 </table>
+
+<!-- Your other EJS templating code goes here -->
+
+</body>
+</html>
