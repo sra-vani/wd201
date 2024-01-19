@@ -83,10 +83,6 @@
   </div>
 
 </div>
-
-
-  <%- include('todos.ejs') %>
-
-    <%- include('footer.ejs') %>
+<%- include('todos.ejs', { overdue, duetoday, duelater}) %>
 </body>
 </html>
