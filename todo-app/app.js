@@ -5,48 +5,51 @@ const bodyParser = require("body-parser");
 const path = require("path");
 
 app.use(bodyParser.json());
+
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 
-// Middleware for handling errors
-app.use((err, req, res, next) => {
-  if (err) {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
-  } else {
-    next(); // Pass control to the next middleware
-  }
-});
-
 app.get("/", async (request, response) => {
   try {
-    const allTodos = await Todo.getTodos(); // Assuming getTodos is a static method in your model
+    const overdue = await Todo.getOverdueTodos();
+    const duetoday = await Todo.getDueTodayTodos();
+    const duelater = await Todo.getDueLaterTodos();
+
     if (request.accepts("html")) {
       response.render("index.ejs", {
-        allTodos,
+        overdue,
+        duetoday,
+        duelater,
       });
     } else {
       response.json({
-        allTodos,
+        overdue,
+        duetoday,
+        duelater,
       });
     }
   } catch (error) {
     console.error(error);
-    response.status(500).send('Internal Server Error');
+    response.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-app.get("/todos", async (request, response) => {
+app.get("/", function (request, response) {
+  response.send("Hello World");
+});
+
+app.get("/todos", async function (_request, response) {
+  console.log("Processing list of all Todos ...");
   try {
     const todos = await Todo.findAll();
-    response.json(todos);
+    response.send(todos);
   } catch (error) {
     console.error(error);
-    response.status(500).json({ error: 'Internal Server Error' });
+    response.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-app.get("/todos/:id", async (request, response) => {
+app.get("/todos/:id", async function (request, response) {
   try {
     const todo = await Todo.findByPk(request.params.id);
     return response.json(todo);
@@ -56,7 +59,7 @@ app.get("/todos/:id", async (request, response) => {
   }
 });
 
-app.post("/todos", async (request, response) => {
+app.post("/todos", async function (request, response) {
   try {
     const todo = await Todo.addTodo(request.body);
     return response.json(todo);
@@ -66,9 +69,9 @@ app.post("/todos", async (request, response) => {
   }
 });
 
-app.put("/todos/:id/markAsCompleted", async (request, response) => {
+app.put("/todos/:id/markAsCompleted", async function (request, response) {
+  const todo = await Todo.findByPk(request.params.id);
   try {
-    const todo = await Todo.findByPk(request.params.id);
     const updatedTodo = await todo.markAsCompleted();
     return response.json(updatedTodo);
   } catch (error) {
@@ -77,25 +80,27 @@ app.put("/todos/:id/markAsCompleted", async (request, response) => {
   }
 });
 
-app.delete("/todos/:id", async (request, response) => {
+app.delete("/todos/:id", async function (request, response) {
+  console.log("We have to delete a Todo with ID: ", request.params.id);
   try {
-    const todo = await Todo.findByPk(request.params.id);
-    if (todo) {
-      await todo.destroy();
-      response.send(true);
+    if (await Todo.findByPk(request.params.id)) {
+      await Todo.destroy({
+        where: {
+          id: request.params.id,
+        },
+      });
+      if (await Todo.findByPk(request.params.id)) {
+        response.send(false);
+      } else {
+        response.send(true);
+      }
     } else {
       response.send(false);
     }
   } catch (error) {
     console.error(error);
-    response.status(500).send('Internal Server Error');
+    response.status(500).json({ error: "Internal Server Error" });
   }
-});
-
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
 });
 
 module.exports = app;
