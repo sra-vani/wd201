@@ -1,28 +1,26 @@
+<section>
+  <h5>Overdue (<span id="cou-overdue"><%= overdue.length %></span>)</h5>
+  <ul>
+    <% overdue.forEach(todo => { %>
+      <li><%= todo.title %></li>
+    <% }); %>
+  </ul>
+</section>
 
 <section>
-    <h5>Overdue (<span id="cou-overdue"><%= overdueTodos.length %></span>)</h5>
-    <ul>
-      <% overdueTodos.forEach(todo => { %>
-        <li><%= todo.title %></li>
-      <% }); %>
-    </ul>
-  </section>
-  
-  
-  <section>
-    <h5>Due Today (<span id="cou-due-today"><%= dueTodayTodos.length %></span>)</h5>
-    <ul>
-      <% dueTodayTodos.forEach(todo => { %>
-        <li><%= todo.title %></li>
-      <% }); %>
-    </ul>
-  </section>
-  
-  <section>
-    <h5>Due Later (<span id="cou-due-later"><%= dueLaterTodos.length %></span>)</h5>
-    <ul>
-      <% dueLaterTodos.forEach(todo => { %>
-        <li><%= todo.title %></li>
-      <% }); %>
-    </ul>
-  </section>
+  <h5>Due Today (<span id="cou-duetoday"><%= duetoday.length %></span>)</h5>
+  <ul>
+    <% duetoday.forEach(todo => { %>
+      <li><%= todo.title %></li>
+    <% }); %>
+  </ul>
+</section>
+
+<section>
+  <h5>Due Later (<span id="cou-duelater"><%= duelater.length %></span>)</h5>
+  <ul>
+    <% duelater.forEach(todo => { %>
+      <li><%= todo.title %></li>
+    <% }); %>
+  </ul>
+</section>
