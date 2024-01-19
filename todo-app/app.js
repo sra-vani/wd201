@@ -3,91 +3,99 @@ const app = express();
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
 const path = require("path");
-app.use(bodyParser.json());
 
+app.use(bodyParser.json());
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/", async (request, response) => {
-  const allTodos = await Todo.getTodos();
-  if (request.accepts("html")) {
-    response.render("index.ejs", {
-      allTodos,
-    });
+// Middleware for handling errors
+app.use((err, req, res, next) => {
+  if (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
   } else {
-    response.json({
-      allTodos,
-    });
+    next(); // Pass control to the next middleware
   }
-  response.render("index.ejs");
 });
 
-app.get("/", function (request, response) {
-  response.send("Hello World");
+app.get("/", async (request, response) => {
+  try {
+    const allTodos = await Todo.getTodos(); // Assuming getTodos is a static method in your model
+    if (request.accepts("html")) {
+      response.render("index.ejs", {
+        allTodos,
+      });
+    } else {
+      response.json({
+        allTodos,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    response.status(500).send('Internal Server Error');
+  }
 });
 
-app.get("/todos", async function (_request, response) {
-  console.log("Processing list of all Todos ...");
-  // FILL IN YOUR CODE HERE
-  // First, we have to query our PostgerSQL database using Sequelize to get list of all Todos.
-  // Then, we have to respond with all Todos, like:
-  const todos = await Todo.findAll();
-  // response.send(todos)
-  response.send(todos);
+app.get("/todos", async (request, response) => {
+  try {
+    const todos = await Todo.findAll();
+    response.json(todos);
+  } catch (error) {
+    console.error(error);
+    response.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
-app.get("/todos/:id", async function (request, response) {
+app.get("/todos/:id", async (request, response) => {
   try {
     const todo = await Todo.findByPk(request.params.id);
     return response.json(todo);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return response.status(422).json(error);
   }
 });
 
-
-app.post("/todos", async function (request, response) {
+app.post("/todos", async (request, response) => {
   try {
     const todo = await Todo.addTodo(request.body);
     return response.json(todo);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return response.status(422).json(error);
   }
 });
 
-app.put("/todos/:id/markAsCompleted", async function (request, response) {
-  const todo = await Todo.findByPk(request.params.id);
+app.put("/todos/:id/markAsCompleted", async (request, response) => {
   try {
+    const todo = await Todo.findByPk(request.params.id);
     const updatedTodo = await todo.markAsCompleted();
     return response.json(updatedTodo);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return response.status(422).json(error);
   }
 });
 
-app.delete("/todos/:id", async function (request, response) {
-  console.log("We have to delete a Todo with ID: ", request.params.id);
-  // FILL IN YOUR CODE HERE
-  if (await Todo.findByPk(request.params.id)) {
-    await Todo.destroy({
-      where: {
-        id: request.params.id,
-      },
-    });
-    if (await Todo.findByPk(request.params.id)) {
-      response.send(false);
-    } else {
+app.delete("/todos/:id", async (request, response) => {
+  try {
+    const todo = await Todo.findByPk(request.params.id);
+    if (todo) {
+      await todo.destroy();
       response.send(true);
+    } else {
+      response.send(false);
     }
-  } else {
-    response.send(false);
+  } catch (error) {
+    console.error(error);
+    response.status(500).send('Internal Server Error');
   }
-  // First, we have to query our database to delete a Todo by ID.
-  // Then, we have to respond back with true/false based on whether the Todo was deleted or not.
-  // response.send(true)
+});
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
 
 module.exports = app;
