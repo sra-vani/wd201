@@ -1,5 +1,5 @@
 <section>
-  <h5>Overdue (<span id="count-overdue"><%= overdue.length %></span>)</h5>
+  <span id="count-overdue"><%= overdue.length %></span>
   <ul>
     <% overdue.forEach(todo => { %>
       <li><%= todo.title %></li>
@@ -8,7 +8,7 @@
 </section>
 
 <section>
-  <h5>Due Today (<span id="count-duetoday"><%= duetoday.length %></span>)</h5>
+  <span id="count-duetoday"><%= duetoday.length %></span>
   <ul>
     <% duetoday.forEach(todo => { %>
       <li><%= todo.title %></li>
@@ -17,7 +17,7 @@
 </section>
 
 <section>
-  <h5>Due Later (<span id="count-duelater"><%= duelater.length %></span>)</h5>
+  <span id="count-duelater"><%= duelater.length %></span>
   <ul>
     <% duelater.forEach(todo => { %>
       <li><%= todo.title %></li>
