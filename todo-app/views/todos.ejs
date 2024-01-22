@@ -1,22 +1,30 @@
-
-<section id="Overdue">
-    <ul>
-      <% overdue.forEach(todo => { %>
-        <li><%= todo.title %></li>
-      <% }); %>
-    </ul>
-  </section>
-  <section id="Due Today">
-    <ul>
-      <% duetoday.forEach(todo => { %>
-        <li><%= todo.title %></li>
-      <% }); %>
-    </ul>
-  </section>
-  <section id="Due Later">
-    <ul>
-      <% duelater.forEach(todo => { %>
-        <li><%= todo.title %></li>
-      <% }); %>
-    </ul>
-  </section>
+<div class="">
+  <h5>Overdue</h5>
+  <p id="count-overdue"><%= overdue.length %></p>
+  <ul class="list-none">
+    <% for (let i = 0; i < overdue.length; i++) { %>
+      <%- include("todo.ejs", { data: overdue[i].dataValues }) %>
+    <% } %>
+  </ul>
+  <h5>Due Today</h5>
+  <p id="count-due-today"><%= dueToday.length %></p>
+  <ul class="list-none">
+    <% for (let i = 0; i < dueToday.length; i++) { %>
+      <%- include("todo.ejs", { data: dueToday[i].dataValues }) %>
+    <% } %>
+  </ul>
+  <h5>Due Later</h5>
+  <p id="count-due-later"><%= dueLater.length %></p>
+  <ul class="list-none">
+    <% for (let i = 0; i < dueLater.length; i++) { %>
+      <%- include("todo.ejs", { data: dueLater[i].dataValues }) %>
+    <% } %>
+  </ul>
+  <h5>Completed Items</h5>
+  <p id="count-completed"><%= completedItems.length %></p>
+  <ul class="list-none">
+    <% for (let i = 0; i < completedItems.length; i++) { %>
+      <%- include("todo.ejs", { data: completedItems[i].dataValues }) %>
+    <% } %>
+  </ul>
+</div>
