@@ -1,32 +1,32 @@
-<h5 class="font-bold">Overdue <span id="count-overdue"><%- odTodos.length %></span></h5>
-<h5 class="font-bold inline">Overdue</h5> <span id="count-overdue" class="ml-1 font-bold"><%- odTodos.length %></span>
+<h5 class="font-bold">Overdue <span id="count-overdue"><%- overdTodos.length %></span></h5>
+<h5 class="font-bold inline">Overdue</h5> <span id="count-overdue" class="ml-1 font-bold"><%- overdTodos.length %></span>
 <table>
-    <% for(var i = 0; i < odTodos.length ;i++){ %>
+    <% for(var i = 0; i < overdTodos.length ;i++){ %>
             <tr> 
                 <td>
-                    <input type="checkbox" class="mr-2"><%= odTodos[i].title %>
+                    <input type="checkbox" class="mr-2"><%= overdTodos[i].title %>
                 </td>
             </tr>
     <% } %>
 </table> 
-<h5 class="font-bold">Due Today <span id="count-due-today"><%- dtTodos.length %></span></h5>
-<h5 class="font-bold inline">Due Today</h5> <span id="count-due-today" class="ml-1 font-bold"><%- dtTodos.length %></span>
+<h5 class="font-bold">Due Today <span id="count-due-today"><%- duetTodos.length %></span></h5>
+<h5 class="font-bold inline">Due Today</h5> <span id="count-due-today" class="ml-1 font-bold"><%- duetTodos.length %></span>
 <table>
-    <% for(var i = 0; i < dtTodos.length ;i++){ %>
+    <% for(var i = 0; i < duetTodos.length ;i++){ %>
             <tr> 
                 <td>
-                    <input type="checkbox" class="mr-2"><%= dtTodos[i].title %>
+                    <input type="checkbox" class="mr-2"><%= duetTodos[i].title %>
                 </td>
             </tr>
     <% } %>
 </table> 
-<h5 class="font-bold">Due Later <span id="count-due-later"><%- dlTodos.length %></span></h5>
-<h5 class="font-bold inline">Due Later</h5> <span id="count-due-later" class="ml-1 font-bold"><%- dlTodos.length %></span>
+<h5 class="font-bold">Due Later <span id="count-due-later"><%- dulaTodos.length %></span></h5>
+<h5 class="font-bold inline">Due Later</h5> <span id="count-due-later" class="ml-1 font-bold"><%- dulaTodos.length %></span>
 <table>
-    <% for(var i = 0; i < dlTodos.length ;i++){ %>
+    <% for(var i = 0; i < dulaTodos.length ;i++){ %>
             <tr> 
                 <td>
-                    <input type="checkbox" class="mr-2"><%= dlTodos[i].title %>
+                    <input type="checkbox" class="mr-2"><%= dulaTodos[i].title %>
                 </td> 
             </tr>
     <% } %>
