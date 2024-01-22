@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--link rel="stylesheet" href="./css/styles.css"-->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Todo-App</title>
+</head>
 <body>
     <div>
         <%- include('header.ejs') %>
@@ -6,3 +15,12 @@
             <form action="/todos" method="post">
                 <input class="border-2 ml-2" type="text" placeholder="What's next?" name="title">
                 <input class="border-2 ml-2" type="date" name="dueDate">
+                <button class=" ml-2" type="submit">Add</button>
+            </form>
+            <div class="">
+                <%- include('todos.ejs') %>
+            </div>
+            <%- include('footer.ejs') %>
+    </div>
+</body>
+</html>
