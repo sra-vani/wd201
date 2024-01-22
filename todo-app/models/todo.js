@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
@@ -8,29 +9,63 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      Todo.belongsTo(models.User, {
+        foreignKey: "userId",
+      });
       // define association here
     }
-    static addTodo({ title, dueDate }) {
-      return this.create({ title, dueDate, completed: false });
+
+    static addTodo({ title, dueDate, userId }) {
+      return this.create({
+        title: title,
+        dueDate: dueDate,
+        completed: false,
+        userId,
+      });
+    }
+
+    static getTodos(userId) {
+      return this.findAll({
+        where: {
+          userId,
+        },
+      });
+    }
+
+    static async remove(id, userId) {
+      return this.destroy({
+        where: {
+          id,
+          userId,
+        },
+      });
     }
 
     setCompletionStatus(status) {
       return this.update({ completed: status });
     }
-    static getTodos() {
-      return this.findAll();
+
+    markAsCompleted() {
+      return this.update({ completed: true });
     }
   }
   Todo.init(
     {
-      title: DataTypes.STRING,
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: true,
+          len: 5,
+        },
+      },
       dueDate: DataTypes.DATEONLY,
       completed: DataTypes.BOOLEAN,
     },
     {
       sequelize,
       modelName: "Todo",
-    }
+    },
   );
   return Todo;
 };
