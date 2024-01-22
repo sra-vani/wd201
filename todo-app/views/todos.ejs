@@ -1,32 +1,32 @@
-<h5 class="font-bold">Overdue <span id="count-overdue"><%- overdTodos.length %></span></h5>
-<h5 class="font-bold inline">Overdue</h5> <span id="count-overdue" class="ml-1 font-bold"><%- overdTodos.length %></span>
+<h5 class="font-bold">Overdue <span id="count-overdue"><%- overdueTodos.length %></span></h5>
+<h5 class="font-bold inline">Overdue</h5> <span id="count-overdue" class="ml-1 font-bold"><%- overdueTodos.length %></span>
 <table>
-    <% for(var i = 0; i < overdTodos.length ;i++){ %>
+    <% for(var i = 0; i < overdueTodos.length ;i++){ %>
             <tr> 
                 <td>
-                    <input type="checkbox" class="mr-2"><%= overdTodos[i].title %>
+                    <input type="checkbox" class="mr-2"><%= overdueTodos[i].title %>
                 </td>
             </tr>
     <% } %>
 </table> 
-<h5 class="font-bold">Due Today <span id="count-due-today"><%- duetTodos.length %></span></h5>
-<h5 class="font-bold inline">Due Today</h5> <span id="count-due-today" class="ml-1 font-bold"><%- duetTodos.length %></span>
+<h5 class="font-bold">Due Today <span id="count-due-today"><%- duetodayTodos.length %></span></h5>
+<h5 class="font-bold inline">Due Today</h5> <span id="count-due-today" class="ml-1 font-bold"><%-  duetodayTodos.length %></span>
 <table>
-    <% for(var i = 0; i < duetTodos.length ;i++){ %>
+    <% for(var i = 0; i <  duetodayTodos.length ;i++){ %>
             <tr> 
                 <td>
-                    <input type="checkbox" class="mr-2"><%= duetTodos[i].title %>
+                    <input type="checkbox" class="mr-2"><%=  duetodayTodos[i].title %>
                 </td>
             </tr>
     <% } %>
 </table> 
-<h5 class="font-bold">Due Later <span id="count-due-later"><%- dulaTodos.length %></span></h5>
-<h5 class="font-bold inline">Due Later</h5> <span id="count-due-later" class="ml-1 font-bold"><%- dulaTodos.length %></span>
+<h5 class="font-bold">Due Later <span id="count-due-later"><%- duelaterTodos.length %></span></h5>
+<h5 class="font-bold inline">Due Later</h5> <span id="count-due-later" class="ml-1 font-bold"><%- duelaterTodos.length %></span>
 <table>
-    <% for(var i = 0; i < dulaTodos.length ;i++){ %>
+    <% for(var i = 0; i < duelaterTodos.length ;i++){ %>
             <tr> 
                 <td>
-                    <input type="checkbox" class="mr-2"><%= dulaTodos[i].title %>
+                    <input type="checkbox" class="mr-2"><%= duelaterTodos[i].title %>
                 </td> 
             </tr>
     <% } %>
