@@ -17,10 +17,23 @@
                 <input class="border-2 ml-2" type="date" name="dueDate">
                 <button class=" ml-2" type="submit">Add</button>
             </form>
-            <div class="">
+            <div>
                 <%- include('todos.ejs') %>
+
+                     <form action="/todos" method="post">
+                <input class="border-2 ml-2" type="text" placeholder="What's next?" name="title">
+                <input class="border-2 ml-2" type="date" name="dueDate">
+                <button class=" ml-2" type="submit">Add</button>
+            </form>
             </div>
+        <div>
             <%- include('footer.ejs') %>
+
+                 <form action="/todos" method="post">
+                <input class="border-2 ml-2" type="text" placeholder="What's next?" name="title">
+                <input class="border-2 ml-2" type="date" name="dueDate">
+                <button class=" ml-2" type="submit">Add</button>
+            </form>
     </div>
 </body>
 </html>
