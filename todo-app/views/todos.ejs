@@ -1,26 +1,23 @@
-<section>
-  <h5>Overdue (<span id="count-overdue"><%= overdue.length %></span>)</h5>
-  <ul>
-    <% overdue.forEach(todo => { %>
-      <li><%= todo.title %></li>
-    <% }); %>
-  </ul>
-</section>
-
-<section>
-  <h5>Due Today (<span id="count-duetoday"><%= duetoday.length %></span>)</h5>
-  <ul>
-    <% duetoday.forEach(todo => { %>
-      <li><%= todo.title %></li>
-    <% }); %>
-  </ul>
-</section>
-
-<section>
-  <h5>Due Later (<span id="count-duelater"><%= duelater.length %></span>)</h5>
-  <ul>
-    <% duelater.forEach(todo => { %>
-      <li><%= todo.title %></li>
-    <% }); %>
-  </ul>
-</section>
+<h5 class="font-bold">Overdue <span id="count-overdue"><%- odTodos.length %></span></h5>
+<h5 class="font-bold inline">Overdue</h5> <span id="count-overdue" class="ml-1 font-bold"><%- odTodos.length %></span>
+<table>
+    <% for(var i = 0; i < odTodos.length ;i++){ %>
+            <tr> 
+@@ -8,7 +8,7 @@
+            </tr>
+    <% } %>
+</table> 
+<h5 class="font-bold">Due Today <span id="count-due-today"><%- dtTodos.length %></span></h5>
+<h5 class="font-bold inline">Due Today</h5> <span id="count-due-today" class="ml-1 font-bold"><%- dtTodos.length %></span>
+<table>
+    <% for(var i = 0; i < dtTodos.length ;i++){ %>
+            <tr> 
+@@ -18,7 +18,7 @@
+            </tr>
+    <% } %>
+</table> 
+<h5 class="font-bold">Due Later <span id="count-due-later"><%- dlTodos.length %></span></h5>
+<h5 class="font-bold inline">Due Later</h5> <span id="count-due-later" class="ml-1 font-bold"><%- dlTodos.length %></span>
+<table>
+    <% for(var i = 0; i < dlTodos.length ;i++){ %>
+            <tr> 
