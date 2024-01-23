@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="<%= csrfToken %>">
+    <meta name="csrf-token" content="<%= csrfToken %>" />
     <link rel="stylesheet" href="./css/styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Todo-App</title>
+    <title>To-Do APP</title>
 </head>
-
 <body>
-    <div class="mainDiv">
-        <%- include('header.ejs') %>
-        <h5>Welcome to the To-Do Manager</h5>
-        <p>New here? <a href="/signup" class="bg-lime-300">Sign Up Here</a></p>
-        <p>Have Account? <a href="/login" class="bg-lime-300">Login Here</a></p>
-
-        <%- include('footer.ejs') %>
+    <div class="grid grid-cols-6">
+        <div class="col-start-3 col-span-2">
+            <%- include('header.ejs') %>
+            <p class="py-2">Welcome to the To-Do Manager</p>
+            <p class="py-2">New here? <a href="/signup" class="text-green-600">Sign-up</a></p>
+            <p class="py-2">Already have an account? <a href="/login" class="text-green-600">Sign-in</a></p>
+        </div>
     </div>
+    <%- include('footer.ejs') %>
 </body>
-
 </html>
