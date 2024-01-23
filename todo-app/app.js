@@ -127,13 +127,13 @@ app.post("/users",async (request,response)=>{
   const trimmedPassword = request.body.password.trim();
   //have to create a todo
   if (request.body.firstName.length == 0) {
-    request.flash("error", "First Name cant be empty");
+    request.flash("error", "First name required");
     return response.redirect("/signup");
   } else if (request.body.email.length == 0) {
-    request.flash("error", "Email cant be empty");
+    request.flash("error", "Email is required");
     return response.redirect("/signup");
   } else if (trimmedPassword.length == 0) {
-    request.flash("error", "password cannot be empty");
+    request.flash("error", "password is required");
     return response.redirect("/signup");
   }
   try{
